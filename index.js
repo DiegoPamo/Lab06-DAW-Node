@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
 
 let agendaTelefonica = [
     {
@@ -46,6 +47,27 @@ let agendaTelefonica = [
     agendaTelefonica = agendaTelefonica.filter(agenda => agenda.id !== id)
     response.status(204).end()
   })
+
+
+  app.post('/api/persons', (request, response) => {
+    var num = Math.floor((Math.random() * (100000-4))+4);
+    let content = request.body
+    console.log(content)
+    
+    let agenda = {
+      id: num,
+      name: content.name,
+      number: content.number,
+      
+    }
+    console.log(agenda)
+    agendaTelefonica.push(agenda)
+    response.json(agenda)
+    
+    
+  })
+
+
 
   app.get('/info', (req, res) => {
     const persons = agendaTelefonica.length
