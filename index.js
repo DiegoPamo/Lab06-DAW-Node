@@ -30,6 +30,16 @@ let agendaTelefonica = [
   app.get('/api/persons', (req, res) => {
     res.json(agendaTelefonica)
   })
+  
+  app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const agenda = agendaTelefonica.find(agenda => agenda.id === id)
+    if (agenda) {
+      response.json(agenda)
+    } else {
+      response.status(404).end()
+    }
+  })
 
   app.get('/info', (req, res) => {
     const persons = agendaTelefonica.length
