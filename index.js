@@ -24,11 +24,16 @@ let agendaTelefonica = [
     }
   ]
   app.get('/', (req, res) => {
-    res.send('<h1>Hello World!</h1>')
+    res.send('<h1>Pagina de Inico</h1>')
   })
   
   app.get('/api/persons', (req, res) => {
     res.json(agendaTelefonica)
+  })
+
+  app.get('/info', (req, res) => {
+    const persons = agendaTelefonica.length
+    res.send('<h3>PhoneBook has info for '+persons+' people</h3>'+'<h3>Hora de la Solicitud '+new Date() +'</h3>')
   })
 
 
