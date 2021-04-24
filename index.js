@@ -41,6 +41,12 @@ let agendaTelefonica = [
     }
   })
 
+  app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    agendaTelefonica = agendaTelefonica.filter(agenda => agenda.id !== id)
+    response.status(204).end()
+  })
+
   app.get('/info', (req, res) => {
     const persons = agendaTelefonica.length
     res.send('<h3>PhoneBook has info for '+persons+' people</h3>'+'<h3>Hora de la Solicitud '+new Date() +'</h3>')
