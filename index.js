@@ -48,23 +48,28 @@ let agendaTelefonica = [
     response.status(204).end()
   })
 
+  const generateId = () => {
+    var nuevo = Math.floor((Math.random() * (100000-200))+200);
+    return nuevo
+  }
 
   app.post('/api/persons', (request, response) => {
-    var num = Math.floor((Math.random() * (100000-4))+4);
-    let content = request.body
-    console.log(content)
-    
-    let agenda = {
-      id: num,
-      name: content.name,
-      number: content.number,
-      
+    let contenido = request.body
+    const errors = agendaTelefonica.find(err => err.name === contenido.name)
+    if (errors){
+      response.status(406).json({error: "El dato ya existe"})
+    }else if(contenido.name === ""  || contenido.number === ""){
+      response.status(406).json({error: "Te falta llenar un campo"})
+    }else{
+      let agenda = {
+        id: generateId(),
+        name: contenido.name,
+        number: contenido.number,
+        
+      }
+      agendaTelefonica.push(agenda)
+      response.json(agenda)
     }
-    console.log(agenda)
-    agendaTelefonica.push(agenda)
-    response.json(agenda)
-    
-    
   })
 
 
